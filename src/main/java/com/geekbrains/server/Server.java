@@ -46,7 +46,6 @@ public class Server {
                 return true;
             }
         }
-
         return false;
     }
 
@@ -54,6 +53,16 @@ public class Server {
         for(ClientHandler handler: connectedUsers) {
             handler.sendMessage(message);
         }
+    }
+
+    public synchronized void messageToNickname(String nick, String message) {
+        for(ClientHandler handler: connectedUsers) {
+            if (handler.getNickName().equals(nick)) {
+                handler.sendMessage(message);
+                return;
+            }
+        }
+        System.out.println("В активных подключениях нет nick = " + nick);
     }
 
     public synchronized void addConnectedUser(ClientHandler handler) {

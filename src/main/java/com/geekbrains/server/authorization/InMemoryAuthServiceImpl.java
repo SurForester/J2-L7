@@ -9,9 +9,9 @@ public class InMemoryAuthServiceImpl implements AuthService {
 
     public InMemoryAuthServiceImpl() {
         users = new HashMap<>();
-        users.put("login1", new UserData("login1", "password1", "first_user"));
-        users.put("login2", new UserData("login2", "password2", "second_user"));
-        users.put("login3", new UserData("login3", "password3", "third_user"));
+        users.put("nick1", new UserData("login1", "password1", "nick1"));
+        users.put("nick2", new UserData("login2", "password2", "nick2"));
+        users.put("nick3", new UserData("login3", "password3", "nick3"));
     }
 
     @Override
@@ -26,7 +26,6 @@ public class InMemoryAuthServiceImpl implements AuthService {
         if (user != null && user.getPassword().equals(password)) {
             return user.getNickName();
         }
-
         return null;
     }
 

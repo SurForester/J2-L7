@@ -49,7 +49,7 @@ public class ClientHandler {
                 String nickName = server.getAuthService().getNickNameByLoginAndPassword(authInfo[1], authInfo[2]);
                 if (nickName != null) {
                     if (!server.isNickNameBusy(nickName)) {
-                        sendMessage("/authok " + nickName);
+                        sendMessage("/auth ok " + nickName);
                         this.nickName = nickName;
                         server.broadcastMessage(nickName + " зашел в чат");
                         server.addConnectedUser(this);
@@ -70,9 +70,20 @@ public class ClientHandler {
             System.out.println("от " + nickName + ": " + messageInChat);
             if(messageInChat.equals(ServerCommandConstants.SHUTDOWN)) {
                 return;
+            } else if (messageInChat.startsWith(ServerCommandConstants.PRIVATE_MESSAGE)) {
+                String[] subStr = messageInChat.split(" ");
+                if (subStr.length < 3) {
+                    System.out.println("Неверный формат сообщения для NickName - " + messageInChat);
+                    return;
+                }
+                String message = "";
+                for (int i = 2; i < subStr.length; i++) {
+                    message = message + subStr[i] + " ";
+                }
+                server.messageToNickname(subStr[1], message);
+            } else {
+                server.broadcastMessage(nickName + ": " + messageInChat);
             }
-
-            server.broadcastMessage(nickName + ": " + messageInChat);
         }
     }
 
