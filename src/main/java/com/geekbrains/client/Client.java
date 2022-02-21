@@ -13,7 +13,7 @@ public class Client {
     private Socket socket;
     private DataInputStream inputStream;
     private DataOutputStream outputStream;
-    private Scanner scanner;
+    private final Scanner scanner;
 
     public Client() {
         scanner = new Scanner(System.in);
@@ -83,7 +83,6 @@ public class Client {
         } catch (IOException exception) {
             exception.printStackTrace();
         }
-
         System.exit(1);
     }
 
